@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 
+st.set_page_config(
+    page_title = "Input",
+    page_icon = "✏️",
+)
+
 st.header("Hello World 👏")
 st.write("This is my first app")
 

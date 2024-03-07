@@ -1,4 +1,11 @@
 import streamlit as st 
+import pandas as pd
+
+st.set_page_config(
+    page_title = "Upload",
+    page_icon = "📩",
+)
+
 dataset_name = "Breast cancel"
 
 uploaded_file = st.file_uploader(f"upload you {dataset_name} file.csv ", ['.csv'])
