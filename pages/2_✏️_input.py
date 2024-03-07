@@ -1,6 +1,7 @@
 import streamlit as st 
 import pandas as pd
 from io import StringIO
+import numpy as np
 
 st.set_page_config(
     page_title = "Input",
@@ -53,28 +54,31 @@ class LabelWithEditableField:
         
 
 
-columns = ['id', 'diagnosis', 'radius_mean', 'texture_mean', 'perimeter_mean',
-    'area_mean', 'smoothness_mean', 'compactness_mean', 'concavity_mean',
+columns = ['radius_mean', 'texture_mean', 'perimeter_mean', 'area_mean',
+    'smoothness_mean', 'compactness_mean', 'concavity_mean',
     'concave points_mean', 'symmetry_mean', 'fractal_dimension_mean',
     'radius_se', 'texture_se', 'perimeter_se', 'area_se', 'smoothness_se',
     'compactness_se', 'concavity_se', 'concave points_se', 'symmetry_se',
     'fractal_dimension_se', 'radius_worst', 'texture_worst',
     'perimeter_worst', 'area_worst', 'smoothness_worst',
     'compactness_worst', 'concavity_worst', 'concave points_worst',
-    'symmetry_worst', 'fractal_dimension_worst', 'Unnamed: 32']
+    'symmetry_worst', 'fractal_dimension_worst']
 
 
 def getAllColumnData():
     array = []
     for lwe in all_lwes:
         array.append(lwe.getValue())
-    print(array)
-    return array
+    a = np.array(array)
+    return np.array([a])
 
 
 def onSubmit():
     print("submit data with : ")
     array = getAllColumnData()
+    print(array.shape)
+
+
 
 
 # if __name__ == "__main__":
@@ -85,7 +89,7 @@ for a in columns:
     all_lwes.append(lwe)
 
 # st.button(label, key=None, help=None, on_click=None, args=None, kwargs=None, *, type="secondary", disabled=False, use_container_width=False)
-st.button("Predict", key="predict button", on_click=onSubmit, type="primary")
+st.button("Predict", key="predict button", on_click=onSubmit(), type="primary")
     
     # getAllColumnData()
 
