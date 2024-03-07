@@ -1,4 +1,5 @@
 import streamlit as st 
+import pandas as pd
 dataset_name = "Breast cancel"
 
 uploaded_file = st.file_uploader(f"upload you {dataset_name} file.csv ", ['.csv'])
@@ -17,4 +18,4 @@ if (uploaded_file is not None):
     # Can be used wherever a "file-like" object is accepted:
     dataframe = pd.read_csv(uploaded_file)
     print(dataframe)
-    # st.write(dataframe)
+    st.write(dataframe)
