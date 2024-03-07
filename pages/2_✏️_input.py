@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 from io import StringIO
 import numpy as np
+from model import loadModel
+from joblib import load
+from decoder import decode
+model = loadModel()
 
 st.set_page_config(
     page_title = "Input",
@@ -34,7 +38,6 @@ class LabelWithEditableField:
         return self._number
 
     def search_callback(self, *args, **kwargs):
-        ...
         # print(args)
         input_txt = st.session_state[args[0]]
         if (self.validateOnlyNumber(input_txt)):
@@ -78,19 +81,26 @@ def onSubmit():
     array = getAllColumnData()
     print(array.shape)
 
+    sc= load('std_scaler.bin')
+    X_test_std = sc.transform(array)
+    pred = model.predict(X_test_std)
+
+    st.subheader(f"Result is {decode(pred[0])}")
+    print("pred from input is " , pred[0])
+
+
 
 
 
 # if __name__ == "__main__":
 #     ...
+st.button("Predict", key="predict button", on_click=onSubmit, type="primary")
 all_lwes = []
 for a in columns:
     lwe = LabelWithEditableField(a)
     all_lwes.append(lwe)
 
 # st.button(label, key=None, help=None, on_click=None, args=None, kwargs=None, *, type="secondary", disabled=False, use_container_width=False)
-st.button("Predict", key="predict button", on_click=onSubmit(), type="primary")
     
     # getAllColumnData()
 
-    
